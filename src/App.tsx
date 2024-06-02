@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { check } from "@tauri-apps/plugin-updater";
 import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/core";
 import "./App.css";
@@ -6,6 +7,13 @@ import "./App.css";
 function App() {
     const [greetMsg, setGreetMsg] = useState("");
     const [name, setName] = useState("");
+    const [isUpdateAvailable, setIsUpdateAvailable] = useState<boolean | null | undefined>(null);
+
+    useEffect(() => {
+        check().then((result) => {
+            setIsUpdateAvailable(result?.available);
+        });
+    }, []);
 
     async function greet() {
         // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
@@ -46,6 +54,8 @@ function App() {
             </form>
 
             <p>{greetMsg}</p>
+
+            <p>Update: {isUpdateAvailable}</p>
         </div>
     );
 }

@@ -1,6 +1,6 @@
 {
     "productName": "torrent-info-gen-tauri",
-    "version": "0.0.0",
+    "version": "0.1.0",
     "identifier": "com.torrent-info-gen.tauri",
     "build": {
         "beforeDevCommand": "pnpm dev",
@@ -13,7 +13,8 @@
             {
                 "title": "torrent-info-gen-tauri",
                 "width": 800,
-                "height": 600
+                "height": 600,
+                "dragDropEnabled": true
             }
         ],
         "security": {
@@ -22,7 +23,12 @@
     },
     "bundle": {
         "active": true,
-        "targets": "all",
+        "targets": [
+            "deb",
+            "nsis",
+            "appimage",
+            "updater"
+        ],
         "icon": [
             "icons/32x32.png",
             "icons/128x128.png",
@@ -30,5 +36,13 @@
             "icons/icon.icns",
             "icons/icon.ico"
         ]
+    },
+    "plugins": {
+        "updater": {
+            "endpoints": [
+                "https://releases.myapp.com/{{target}}/{{arch}}/{{current_version}}"
+            ],
+            "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDdDRjE1NjY4RTdGNkZDNTQKUldSVS9QYm5hRmJ4ZkxFMjI1Z2dOZC9iZHUxa0VzNUZFaU05VmlqNTVmZDVGU0lJOFBLdUVYWmUK"
+        }
     }
 }
